@@ -1,0 +1,4 @@
+### GET request to example server
+DELETE http://localhost:5173/api/volunteers/4
+
+###
