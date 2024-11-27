@@ -1,0 +1,13 @@
+### 测试管理员注册
+
+GET http://localhost:5173/api/admin?action=register&username=testuser&password=testpass
+Content-Type: application/json
+
+###
+
+### 测试管理员登录
+
+GET http://localhost:8080/VolunteerManagement_war/api/admin?action=login&username=testuser&password=testpass
+Content-Type: application/json
+
+###

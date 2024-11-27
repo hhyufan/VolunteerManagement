@@ -43,3 +43,37 @@ export const addVolunteer = async (volunteer) => {
         throw error;
     }
 };
+
+// 登录
+export const loginAdmin = async (username, password) => {
+    try {
+        const response = await axios.get('/api/admin', {
+            params: {
+                action: 'login',
+                username: encodeURIComponent(username),
+                password: encodeURIComponent(password)
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error logging in:', error);
+        throw error;
+    }
+};
+
+// 注册
+export const registerAdmin = async (username, password) => {
+    try {
+        const response = await axios.get('/api/admin', {
+            params: {
+                action: 'register',
+                username: encodeURIComponent(username),
+                password: encodeURIComponent(password)
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error registering:', error);
+        throw error;
+    }
+};
