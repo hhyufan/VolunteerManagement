@@ -1,5 +1,5 @@
 
-# Volunteer Management System
+# 志愿者资源管理系统
 
 这是一个基于 Vite + React 的前端和 Java Servlet 后端的志愿者管理系统。该项目使用了 Axios 进行 HTTP 请求，Font Awesome 图标库用于 UI 图标展示，后端使用了 MySQL 数据库，通过 JDBC 进行连接，Maven 管理项目依赖，Tomcat 作为应用服务器，Lombok 简化 Java 代码，Log4j 用于日志记录。
 
