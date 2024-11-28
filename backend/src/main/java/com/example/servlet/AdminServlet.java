@@ -3,6 +3,10 @@ package com.example.servlet;
 import com.example.dao.AdminDao;
 import com.example.dao.AdminDaoImpl;
 import com.example.entity.Admin;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,21 +14,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 
 @WebServlet("/api/admin")
 public class AdminServlet extends HttpServlet {
+    private static final Logger logger = LogManager.getLogger(AdminServlet.class);
 
     private final AdminDao adminDAO = new AdminDaoImpl();
+    // 定义密钥
+    private static final String SECRET_KEY = "l8Gz&0M1@Pj#2w6K7hX9qVz3T8sW+*bJ";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        String action = request.getParameter("action");
-        if ("register".equals(action)) {
-            register(request, response);
-        } else if ("login".equals(action)) {
-            login(request, response);
+        try {
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            String action = request.getParameter("action");
+            if ("register".equals(action)) {
+                register(request, response);
+            } else if ("login".equals(action)) {
+                login(request, response);
+            }
+        } catch (Exception e) {
+            logger.error("Internal server error", e);
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write("{\"error\": \"Internal server error\"}");
         }
     }
 
@@ -33,7 +47,7 @@ public class AdminServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         if (username == null || password == null) {
-            response.getWriter().write("{\"error\": \"Missing required fields\"}");
+            writeResponse(response, false, "Missing required fields", null);
             return;
         }
 
@@ -42,9 +56,14 @@ public class AdminServlet extends HttpServlet {
         admin.setPassword(password);
 
         boolean success = adminDAO.register(admin);
-        String jsonResponse = success ? "{\"success\": true, \"message\": \"Registration successful\"}" : "{\"success\": false, \"message\": \"Registration failed\"}";
 
-        response.getWriter().write(jsonResponse);
+        if (success) {
+            // 生成 JWT Token
+            String jwt = generateJwt(username);
+            writeResponse(response, true, "Registration successful", jwt);
+        } else {
+            writeResponse(response, false, "Registration failed");
+        }
     }
 
     private void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -52,14 +71,36 @@ public class AdminServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         if (username == null || password == null) {
-            response.getWriter().write("{\"error\": \"Missing required fields\"}");
+            writeResponse(response, false, "Missing required fields");
             return;
         }
 
         Admin admin = adminDAO.login(username, password);
-        String jsonResponse = admin != null ? "{\"success\": true, \"message\": \"Login successful\"}" : "{\"success\": false, \"message\": \"Login failed\"}";
+        if (admin != null) {
+            String jwt = generateJwt(username);
+            writeResponse(response, true, "Login successful", jwt);
+        } else {
+            writeResponse(response, false, "Login failed");
+        }
+    }
 
+    private void writeResponse(HttpServletResponse response, boolean success, String message) throws IOException {
+        writeResponse(response, success, message, null);
+    }
+
+    private void writeResponse(HttpServletResponse response, boolean success, String message, String token) throws IOException {
+        String jsonResponse = String.format("{\"success\": %b, \"message\": \"%s\"%s}", success, message,
+                token != null ? ", \"token\": \"" + token + "\"" : "");
         response.getWriter().write(jsonResponse);
+    }
+
+    public static String generateJwt(String username) {
+        return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 3600000)) // 1小时有效期
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .compact();
     }
 
 }

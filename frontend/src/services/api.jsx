@@ -54,6 +54,10 @@ export const loginAdmin = async (username, password) => {
                 password: encodeURIComponent(password)
             }
         });
+        const token = response.data.token;
+        if (token) {
+            localStorage.setItem('jwtToken', token); // 将 JWT 存储在 localStorage 中
+        }
         return response.data;
     } catch (error) {
         console.error('Error logging in:', error);
@@ -71,6 +75,10 @@ export const registerAdmin = async (username, password) => {
                 password: encodeURIComponent(password)
             }
         });
+        const token = response.data.token;
+        if (token) {
+            localStorage.setItem('jwtToken', token);
+        }
         return response.data;
     } catch (error) {
         console.error('Error registering:', error);
