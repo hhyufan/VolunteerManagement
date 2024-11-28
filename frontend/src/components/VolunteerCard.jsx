@@ -1,13 +1,17 @@
 import PropTypes from 'prop-types';
+const VolunteerCard = ({ volunteer, onDelete, onEdit, isLoggedIn}) => {
 
-const VolunteerCard = ({ volunteer, onDelete, onEdit }) => {
     return (
         <div className="volunteer-card">
             <h3>{volunteer.name}</h3>
             <p>Email: {volunteer.email}</p>
             <p>Phone: {volunteer.phone}</p>
-            <button onClick={() => onEdit(volunteer)}>Edit</button>
-            <button onClick={() => onDelete(volunteer.id)}>Delete</button>
+            {isLoggedIn && (
+                <>
+                    <button onClick={() => onEdit(volunteer)}>Edit</button>
+                    <button onClick={() => onDelete(volunteer.id)}>Delete</button>
+                </>
+            )}
         </div>
     );
 };
@@ -21,6 +25,7 @@ VolunteerCard.propTypes = {
     }).isRequired,
     onDelete: PropTypes.func.isRequired,
     onEdit: PropTypes.func.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
 };
 
 export default VolunteerCard;

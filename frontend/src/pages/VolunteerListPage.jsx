@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import VolunteerCard from '../components/VolunteerCard';
 import VolunteerForm from '../components/VolunteerForm';
 import { fetchVolunteers, deleteVolunteer, updateVolunteer, addVolunteer } from '../services/api';
 
 const VolunteerListPage = () => {
+    const { isLoggedIn } = useOutletContext(); // 从上下文中获取 isLoggedIn
     const [volunteers, setVolunteers] = useState([]);
     const [editingVolunteer, setEditingVolunteer] = useState(null);
 
@@ -47,6 +49,7 @@ const VolunteerListPage = () => {
                         volunteer={volunteer}
                         onDelete={handleDelete}
                         onEdit={handleEdit}
+                        isLoggedIn={isLoggedIn}
                     />
                 ))}
             </div>

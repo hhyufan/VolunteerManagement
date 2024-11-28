@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 const VolunteerForm = ({ initialData = {}, onSubmit }) => {
     const [volunteer, setVolunteer] = useState(initialData);
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setVolunteer({ ...volunteer, [name]: value });
