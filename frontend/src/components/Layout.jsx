@@ -19,11 +19,19 @@ const Layout = () => {
         setUser(username);
         setShowRegister(false);
     };
+    const handleLogout = () => {
+        setUser(null); // 清除用户信息
+        // 可以在这里添加更多清理逻辑，比如清除本地存储中的用户信息
+    };
     const isLoggedIn = !!user; // 检查用户是否已登录
     return (
         <div className="layout">
             {user ? (
-                <div className="welcome-message">欢迎您, {user}</div>
+                <div className="welcome-message">
+                    欢迎您, {user}
+                    <button onClick={handleLogout}>退出</button>
+                </div>
+
             ) : (
                 <div className="auth-buttons">
                     <button onClick={() => setShowLogin(true)}>登录</button>
