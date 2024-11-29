@@ -1,18 +1,22 @@
+import React from 'react';
 import PropTypes from 'prop-types';
-const VolunteerCard = ({ volunteer, onDelete, onEdit, isLoggedIn}) => {
+import { Card, CardContent, Typography, CardActions, Button } from '@mui/material';
 
+const VolunteerCard = ({ volunteer, onDelete, onEdit, isLoggedIn }) => {
     return (
-        <div className="volunteer-card">
-            <h3>{volunteer.name}</h3>
-            <p>Email: {volunteer.email}</p>
-            <p>Phone: {volunteer.phone}</p>
+        <Card sx={{ minWidth: 275, marginBottom: 2 }}>
+            <CardContent>
+                <Typography variant="h5" component="div">{volunteer.name}</Typography>
+                <Typography color="text.secondary">Email: {volunteer.email}</Typography>
+                <Typography color="text.secondary">Phone: {volunteer.phone}</Typography>
+            </CardContent>
             {isLoggedIn && (
-                <>
-                    <button onClick={() => onEdit(volunteer)}>Edit</button>
-                    <button onClick={() => onDelete(volunteer.id)}>Delete</button>
-                </>
+                <CardActions>
+                    <Button size="small" onClick={() => onEdit(volunteer)}>Edit</Button>
+                    <Button size="small" onClick={() => onDelete(volunteer.id)}>Delete</Button>
+                </CardActions>
             )}
-        </div>
+        </Card>
     );
 };
 

@@ -1,14 +1,17 @@
+import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faUsers, faPlus } from '@fortawesome/free-solid-svg-icons';
-import LoginForm from "./LoginForm.jsx";
-import RegisterForm from "./RegisterForm.jsx";
-import React, { useState } from "react";
+import { AppBar, Toolbar, Typography, Button, Drawer, List, ListItem, ListItemIcon, ListItemText, Box } from '@mui/material';
+import LoginForm from './LoginForm.jsx';
+import RegisterForm from './RegisterForm.jsx';
+
+const drawerWidth = 240; // Set a fixed width for the sidebar
 
 const Layout = () => {
     const [showLogin, setShowLogin] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
-    const [user, setUser] = useState(null); // 用于存储登录用户信息
+    const [user, setUser] = useState(null);
 
     const handleLoginSuccess = (username) => {
         setUser(username);
@@ -19,54 +22,78 @@ const Layout = () => {
         setUser(username);
         setShowRegister(false);
     };
+
     const handleLogout = () => {
-        setUser(null); // 清除用户信息
+        setUser(null);
     };
-    const isLoggedIn = !!user; // 检查用户是否已登录
+
+    const isLoggedIn = !!user;
+
     return (
-        <div className="layout">
-            {user ? (
-                <div className="welcome-message">
-                    欢迎您, {user}
-                    <button onClick={handleLogout}>退出</button>
-                </div>
-
-            ) : (
-                <div className="auth-buttons">
-                    <button onClick={() => setShowLogin(true)}>登录</button>
-                    <button onClick={() => setShowRegister(true)}>注册</button>
-                </div>
-            )}
-
-
+        <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column', userSelect: 'none' }}>
+            <AppBar position="static">
+                <Toolbar>
+                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                        志愿者管理系统
+                    </Typography>
+                    {user ? (
+                        <Box>
+                            <Typography variant="body1" sx={{ display: 'inline', marginRight: 2 }}>
+                                欢迎您, {user}
+                            </Typography>
+                            <Button color="inherit" onClick={handleLogout}>退出</Button>
+                        </Box>
+                    ) : (
+                        <Box>
+                            <Button color="inherit" onClick={() => setShowLogin(true)}>登录</Button>
+                            <Button color="inherit" onClick={() => setShowRegister(true)}>注册</Button>
+                        </Box>
+                    )}
+                </Toolbar>
+            </AppBar>
 
             {showLogin && <LoginForm onClose={() => setShowLogin(false)} onSuccess={handleLoginSuccess} />}
             {showRegister && <RegisterForm onClose={() => setShowRegister(false)} onSuccess={handleRegisterSuccess} />}
-            <header className="header">
-                <h1>志愿者管理系统</h1>
-            </header>
-            <div className="main-content">
+
+            <Box sx={{ display: 'flex', flex: 1 }}>
                 {user && (
-                    <nav className="sidebar">
-                        <Link to="/">
-                            <FontAwesomeIcon icon={faHome}/> 首页
-                        </Link>
-                        <Link to="/volunteers">
-                            <FontAwesomeIcon icon={faUsers}/> 管理志愿者
-                        </Link>
-                        <Link to="/add-volunteer">
-                            <FontAwesomeIcon icon={faPlus}/> 添加志愿者
-                        </Link>
-                    </nav>
+                    <Drawer
+                        variant="permanent"
+                        anchor="left"
+                        sx={{
+                            width: drawerWidth,
+                            flexShrink: 0,
+                            '& .MuiDrawer-paper': {
+                                width: drawerWidth,
+                                boxSizing: 'border-box',
+                            },
+                        }}
+                    >
+                        <List>
+                            <ListItem button component={Link} to="/">
+                                <ListItemIcon><FontAwesomeIcon icon={faHome} /></ListItemIcon>
+                                <ListItemText primary="首页" />
+                            </ListItem>
+                            <ListItem button component={Link} to="/volunteers">
+                                <ListItemIcon><FontAwesomeIcon icon={faUsers} /></ListItemIcon>
+                                <ListItemText primary="管理志愿者" />
+                            </ListItem>
+                            <ListItem button component={Link} to="/add-volunteer">
+                                <ListItemIcon><FontAwesomeIcon icon={faPlus} /></ListItemIcon>
+                                <ListItemText primary="添加志愿者" />
+                            </ListItem>
+                        </List>
+                    </Drawer>
                 )}
-                <div className="content">
-                    <Outlet context={{ isLoggedIn }}/>
-                </div>
-            </div>
-            <footer className="footer">
-                <p>© 2024 志愿者管理系统</p>
-            </footer>
-        </div>
+                <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+                    <Outlet context={{ isLoggedIn }} />
+                </Box>
+            </Box>
+
+            <Box component="footer" sx={{ p: 2, textAlign: 'center' }}>
+                <Typography variant="body2">© 2024 志愿者管理系统</Typography>
+            </Box>
+        </Box>
     );
 };
 

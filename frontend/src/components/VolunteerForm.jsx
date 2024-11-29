@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Box, Button, TextField } from '@mui/material';
 
 const VolunteerForm = ({ initialData = {}, onSubmit }) => {
     const [volunteer, setVolunteer] = useState(initialData);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setVolunteer({ ...volunteer, [name]: value });
@@ -14,33 +16,37 @@ const VolunteerForm = ({ initialData = {}, onSubmit }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="volunteer-form">
-            <input
-                type="text"
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <TextField
+                fullWidth
+                label="Name"
                 name="name"
                 value={volunteer.name || ''}
                 onChange={handleChange}
-                placeholder="Name"
+                margin="normal"
                 required
             />
-            <input
-                type="email"
+            <TextField
+                fullWidth
+                label="Email"
                 name="email"
+                type="email"
                 value={volunteer.email || ''}
                 onChange={handleChange}
-                placeholder="Email"
+                margin="normal"
                 required
             />
-            <input
-                type="text"
+            <TextField
+                fullWidth
+                label="Phone"
                 name="phone"
                 value={volunteer.phone || ''}
                 onChange={handleChange}
-                placeholder="Phone"
+                margin="normal"
                 required
             />
-            <button type="submit">Submit</button>
-        </form>
+            <Button type="submit" variant="contained" color="primary" fullWidth>Submit</Button>
+        </Box>
     );
 };
 
