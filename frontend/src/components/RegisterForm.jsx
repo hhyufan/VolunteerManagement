@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField, Typography, Modal } from '@mui/material';
 import { registerAdmin } from '../services/api'; // 假设你已经有一个 registerAdmin 的 API 方法
-import "../theme/style.css"
+import "../theme/style.scss"
 
 const RegisterForm = ({ onClose, onSuccess }) => {
     const [username, setUsername] = useState('');

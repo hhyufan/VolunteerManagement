@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField, Typography, Modal } from '@mui/material';
 import { loginAdmin } from '../services/api';
-import "../theme/style.css"
+import "../theme/style.scss"
 const LoginForm = ({ onClose, onSuccess }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');

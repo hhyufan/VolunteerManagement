@@ -5,7 +5,7 @@ import { faHome, faUsers, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AppBar, Toolbar, Typography, Button, Drawer, List, ListItem, ListItemIcon, ListItemText, Box } from '@mui/material';
 import LoginForm from '../components/LoginForm.jsx';
 import RegisterForm from '../components/RegisterForm.jsx';
-import '../theme/style.css';
+import '../theme/style.scss';
 
 const drawerWidth = 240;
 

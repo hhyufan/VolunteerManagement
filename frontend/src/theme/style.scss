@@ -1,0 +1,103 @@
+$primary-color: #007bff;
+$secondary-color: #f8f9fa;
+$text-color: white;
+$link-color: #007bff;
+$link-hover-color: #2b8ad9;
+$background-color: #f4f4f9;
+$shadow-color: rgba(0, 0, 0, 0.1);
+
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: $background-color;
+}
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    .header, .footer {
+        background-color: $primary-color;
+        color: $text-color;
+        text-align: center;
+        padding: 10px 20px;
+        user-select: none;
+    }
+
+    .main-content {
+        display: flex;
+        flex: 1;
+
+        .sidebar {
+            background-color: $secondary-color;
+            padding: 20px;
+            width: 200px;
+            box-shadow: 2px 0 5px $shadow-color;
+            display: flex;
+            flex-direction: column;
+
+            a {
+                display: flex;
+                align-items: center;
+                margin: 10px 0;
+                color: $link-color;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+
+                svg {
+                    margin-right: 8px;
+                }
+            }
+        }
+
+        .content {
+            user-select: none;
+            flex: 1;
+            padding: 20px;
+        }
+    }
+
+    .footer {
+        padding: 10px 0;
+    }
+}
+
+.card {
+    padding: 2em;
+}
+
+.read-the-docs {
+    color: #888;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: #f0f0f0;
+        color: $link-hover-color;
+    }
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 0 24px $shadow-color;
+    padding: 16px;
+}
