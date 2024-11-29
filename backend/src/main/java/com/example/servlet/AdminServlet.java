@@ -3,6 +3,7 @@ package com.example.servlet;
 import com.example.dao.AdminDao;
 import com.example.dao.AdminDaoImpl;
 import com.example.entity.Admin;
+import com.example.util.SecretKeyUtil;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.logging.log4j.LogManager;
@@ -22,7 +23,7 @@ public class AdminServlet extends HttpServlet {
 
     private final AdminDao adminDAO = new AdminDaoImpl();
     // 定义密钥
-    private static final String SECRET_KEY = "l8Gz&0M1@Pj#2w6K7hX9qVz3T8sW+*bJ";
+    private static final String SECRET_KEY = SecretKeyUtil.generateSecretKey();;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
