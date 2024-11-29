@@ -23,7 +23,7 @@ public class AdminServlet extends HttpServlet {
 
     private final AdminDao adminDAO = new AdminDaoImpl();
     // 定义密钥
-    private static final String SECRET_KEY = SecretKeyUtil.generateSecretKey();;
+    private static final String SECRET_KEY =  "eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJzdWIiOiAidXNlcjEiLCAibmFtZSI6ICJKb2huIERvZSJ9.b99b7b6abf2da6d8468f043d474d56e77f8cfa7d7cc2ef57d3304b0131f575dd";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -100,7 +100,7 @@ public class AdminServlet extends HttpServlet {
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 3600000)) // 1小时有效期
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY.getBytes())
                 .compact();
     }
 

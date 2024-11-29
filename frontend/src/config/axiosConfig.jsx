@@ -5,6 +5,7 @@ axios.interceptors.request.use(
         const token = localStorage.getItem('jwtToken');
         if (token) {
             config.headers.Authorization = `Bearer ${token}`; // 将 JWT 附加到请求头
+
         }
         return config;
     },

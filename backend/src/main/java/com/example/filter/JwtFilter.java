@@ -1,9 +1,6 @@
 package com.example.filter;
-import com.example.util.SecretKeyUtil;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureException;
-import io.jsonwebtoken.ExpiredJwtException;
+
+import io.jsonwebtoken.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,7 +19,8 @@ import java.io.IOException;
 public class JwtFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(JwtFilter.class);
 
-    private static final String SECRET_KEY = SecretKeyUtil.generateSecretKey(); // 使用生成的相同密钥
+    // 请确保这个密钥与生成JWT时使用的密钥相同
+    private static final String SECRET_KEY = "eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJzdWIiOiAidXNlcjEiLCAibmFtZSI6ICJKb2huIERvZSJ9.b99b7b6abf2da6d8468f043d474d56e77f8cfa7d7cc2ef57d3304b0131f575dd";
 
     @Override
     public void init(FilterConfig filterConfig) {}
@@ -34,30 +32,33 @@ public class JwtFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         String authHeader = httpRequest.getHeader("Authorization");
-        System.out.println("value: " + authHeader);
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
             try {
-                System.out.println("token valid! ");
                 Claims claims = Jwts.parser()
-                        .setSigningKey(SECRET_KEY)
+                        .setSigningKey(SECRET_KEY.getBytes()) // 使用字节数组作为密钥
                         .parseClaimsJws(token)
                         .getBody();
 
-                request.setAttribute("claims", claims);
+                // 将解析的claims放到请求属性中，以便后续使用
+                httpRequest.setAttribute("claims", claims);
                 chain.doFilter(request, response);
             } catch (ExpiredJwtException e) {
-                    httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    httpResponse.getWriter().write("{\"error\": \"Token expired\"}");
-            } catch (SignatureException | IllegalArgumentException e) {
-                    logger.error("Invalid token! ");
-
-                    httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    httpResponse.getWriter().write("{\"error\": \"Invalid token but Azuremy\"}");
+                logger.error("Token expired", e);
+                httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                httpResponse.getWriter().write("{\"error\": \"Token expired\"}");
+            } catch (SignatureException e) {
+                logger.error("Invalid token", e);
+                httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                httpResponse.getWriter().write("{\"error\": \"Invalid token\"}");
+            } catch (Exception e) {
+                logger.error("Token processing error", e);
+                httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                httpResponse.getWriter().write("{\"error\": \"Token processing error\"}");
             }
         } else {
             httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            httpResponse.getWriter().write("{\"error\": \"Missing or invalid Authorization header but baka Azuremy\"}");
+            httpResponse.getWriter().write("{\"error\": \"Missing or invalid Authorization header\"}");
         }
     }
 

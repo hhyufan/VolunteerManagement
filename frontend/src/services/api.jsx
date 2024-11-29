@@ -47,20 +47,21 @@ export const addVolunteer = async (volunteer) => {
 // 登录
 export const loginAdmin = async (username, password) => {
     try {
-        const response = await axios.get('/api/admin', {
-            params: {
-                action: 'login',
-                username: encodeURIComponent(username),
-                password: encodeURIComponent(password)
-            }
+        const response = await axios.post('/api/admin', {
+            action: 'login',
+            username: encodeURIComponent(username),
+            password: encodeURIComponent(password)
         });
         const token = response.data.token;
-        if (token) {
-            localStorage.setItem('jwtToken', token); // 将 JWT 存储在 localStorage 中
+        if (!token) {
+            console.error('Login failed: No token received');
+            return null; // or handle the error as needed
         }
+        console.log('Token received:', token);
+        localStorage.setItem('jwtToken', token); // Store JWT in localStorage
         return response.data;
     } catch (error) {
-        console.error('Error logging in:', error);
+        console.error('Error logging in:', error.response ? error.response.data : error.message);
         throw error;
     }
 };
