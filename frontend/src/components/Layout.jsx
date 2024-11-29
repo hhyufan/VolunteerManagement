@@ -21,7 +21,6 @@ const Layout = () => {
     };
     const handleLogout = () => {
         setUser(null); // 清除用户信息
-        // 可以在这里添加更多清理逻辑，比如清除本地存储中的用户信息
     };
     const isLoggedIn = !!user; // 检查用户是否已登录
     return (
