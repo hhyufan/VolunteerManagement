@@ -20,6 +20,7 @@ const VolunteerListPage = () => {
 
     const handleDelete = async (id) => {
         await deleteVolunteer(id);
+        setEditingVolunteer(null);
         await loadVolunteers();  // 删除后重新加载志愿者列表
     };
 
@@ -39,7 +40,7 @@ const VolunteerListPage = () => {
 
     return (
         <div className="container">
-            {editingVolunteer && (
+            {volunteers.length > 0 &&editingVolunteer && (
                 <VolunteerForm initialData={editingVolunteer} onSubmit={handleSubmit} />
             )}
             <div className="volunteer-list">
