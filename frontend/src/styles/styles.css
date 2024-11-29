@@ -17,6 +17,7 @@ body, html {
     color: white;
     padding: 10px 20px;
     text-align: center;
+    user-select: none;
 }
 
 .main-content {
@@ -50,6 +51,7 @@ body, html {
 }
 
 .content {
+    user-select: none;
     flex: 1;
     padding: 20px;
 }
@@ -59,4 +61,5 @@ body, html {
     color: white;
     text-align: center;
     padding: 10px 0;
+    user-select: none;
 }
