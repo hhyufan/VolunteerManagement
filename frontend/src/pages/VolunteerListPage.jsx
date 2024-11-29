@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import VolunteerCard from '../components/VolunteerCard';
 import VolunteerForm from '../components/VolunteerForm';
 import { fetchVolunteers, deleteVolunteer, updateVolunteer, addVolunteer } from '../services/api';
+import {Box, Grid2} from '@mui/material';
 
 const VolunteerListPage = () => {
     const { isLoggedIn } = useOutletContext(); // 从上下文中获取 isLoggedIn
@@ -39,22 +40,23 @@ const VolunteerListPage = () => {
     };
 
     return (
-        <div className="container">
-            {volunteers.length > 0 &&editingVolunteer && (
+        <Box sx={{ p: 3 }}>
+            {editingVolunteer && volunteers > 0 && (
                 <VolunteerForm initialData={editingVolunteer} onSubmit={handleSubmit} />
             )}
-            <div className="volunteer-list">
+            <Grid2 container spacing={2}>
                 {volunteers.map(volunteer => (
-                    <VolunteerCard
-                        key={volunteer.id}
-                        volunteer={volunteer}
-                        onDelete={handleDelete}
-                        onEdit={handleEdit}
-                        isLoggedIn={isLoggedIn}
-                    />
+                    <Grid2 item xs={12} sm={6} md={4} key={volunteer.id}>
+                        <VolunteerCard
+                            volunteer={volunteer}
+                            onDelete={handleDelete}
+                            onEdit={handleEdit}
+                            isLoggedIn={isLoggedIn}
+                        />
+                    </Grid2>
                 ))}
-            </div>
-        </div>
+            </Grid2>
+        </Box>
     );
 };
 

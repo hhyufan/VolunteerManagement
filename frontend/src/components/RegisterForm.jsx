@@ -1,18 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField, Typography, Modal } from '@mui/material';
 import { registerAdmin } from '../services/api'; // 假设你已经有一个 registerAdmin 的 API 方法
-
-const modalStyle = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    p: 4,
-    borderRadius: 1.5
-};
+import "../theme/style.css"
 
 const RegisterForm = ({ onClose, onSuccess }) => {
     const [username, setUsername] = useState('');
@@ -43,7 +32,7 @@ const RegisterForm = ({ onClose, onSuccess }) => {
 
     return (
         <Modal open onClose={onClose}>
-            <Box sx={modalStyle}>
+            <Box className="modal">
                 <Typography variant="h6" component="h2" mb={2}>Register</Typography>
                 <form onSubmit={handleSubmit}>
                     <TextField

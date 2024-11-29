@@ -1,20 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField, Typography, Modal } from '@mui/material';
 import { loginAdmin } from '../services/api';
-
-const modalStyle = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    borderRadius: 1.5,
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    p: 4,
-
-};
-
+import "../theme/style.css"
 const LoginForm = ({ onClose, onSuccess }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -35,7 +22,7 @@ const LoginForm = ({ onClose, onSuccess }) => {
 
     return (
         <Modal open onClose={onClose}>
-            <Box sx={modalStyle}>
+            <Box className="modal">
                 <Typography variant="h6" component="h2" mb={2}>Login</Typography>
                 <form onSubmit={handleSubmit}>
                     <TextField

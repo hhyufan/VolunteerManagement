@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet,  useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faUsers, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AppBar, Toolbar, Typography, Button, Drawer, List, ListItem, ListItemIcon, ListItemText, Box } from '@mui/material';
-import LoginForm from './LoginForm.jsx';
-import RegisterForm from './RegisterForm.jsx';
+import LoginForm from '../components/LoginForm.jsx';
+import RegisterForm from '../components/RegisterForm.jsx';
+import '../theme/style.css';
 
-const drawerWidth = 240; // Set a fixed width for the sidebar
+const drawerWidth = 240;
 
 const Layout = () => {
+    const navigate = useNavigate()
     const [showLogin, setShowLogin] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
     const [user, setUser] = useState(null);
@@ -25,13 +27,14 @@ const Layout = () => {
 
     const handleLogout = () => {
         setUser(null);
+        navigate('/');
     };
 
     const isLoggedIn = !!user;
 
     return (
-        <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column', userSelect: 'none' }}>
-            <AppBar position="static">
+        <Box className="layout">
+            <AppBar position="static" className="header">
                 <Toolbar>
                     <Typography variant="h6" sx={{ flexGrow: 1 }}>
                         志愿者管理系统
@@ -55,9 +58,10 @@ const Layout = () => {
             {showLogin && <LoginForm onClose={() => setShowLogin(false)} onSuccess={handleLoginSuccess} />}
             {showRegister && <RegisterForm onClose={() => setShowRegister(false)} onSuccess={handleRegisterSuccess} />}
 
-            <Box sx={{ display: 'flex', flex: 1 }}>
+            <Box className="main-content">
                 {user && (
                     <Drawer
+                        className="sidebar"
                         variant="permanent"
                         anchor="left"
                         sx={{
@@ -70,27 +74,27 @@ const Layout = () => {
                         }}
                     >
                         <List>
-                            <ListItem button component={Link} to="/">
+                            <ListItem button component={Link} to="/" className="nav-link">
                                 <ListItemIcon><FontAwesomeIcon icon={faHome} /></ListItemIcon>
                                 <ListItemText primary="首页" />
                             </ListItem>
-                            <ListItem button component={Link} to="/volunteers">
+                            <ListItem button component={Link} to="/volunteers" className="nav-link">
                                 <ListItemIcon><FontAwesomeIcon icon={faUsers} /></ListItemIcon>
                                 <ListItemText primary="管理志愿者" />
                             </ListItem>
-                            <ListItem button component={Link} to="/add-volunteer">
+                            <ListItem button component={Link} to="/add-volunteer" className="nav-link">
                                 <ListItemIcon><FontAwesomeIcon icon={faPlus} /></ListItemIcon>
                                 <ListItemText primary="添加志愿者" />
                             </ListItem>
                         </List>
                     </Drawer>
                 )}
-                <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+                <Box component="main" className="content" sx={{ flexGrow: 1, p: 3 }}>
                     <Outlet context={{ isLoggedIn }} />
                 </Box>
             </Box>
 
-            <Box component="footer" sx={{ p: 2, textAlign: 'center' }}>
+            <Box component="footer" className="footer">
                 <Typography variant="body2">© 2024 志愿者管理系统</Typography>
             </Box>
         </Box>
