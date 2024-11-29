@@ -7,7 +7,6 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 // 将font矢量图标增加到库中.
 library.add(fas);
-
 const App = () => {
     return (
         <BrowserRouter>

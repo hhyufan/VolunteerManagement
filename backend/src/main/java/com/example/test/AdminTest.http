@@ -9,5 +9,5 @@ Content-Type: application/json
 
 GET http://localhost:8080/VolunteerManagement_war/api/admin?action=login&username=testuser&password=testpass
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJzdWIiOiAidXNlcjEiLCAibmFtZSI6ICJKb2huIERvZSJ9.b99b7b6abf2da6d8468f043d474d56e77f8cfa7d7cc2ef57d3304b0131f575dd
+
 ###
