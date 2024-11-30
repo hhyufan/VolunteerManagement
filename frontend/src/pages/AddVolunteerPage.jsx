@@ -1,20 +1,23 @@
 import React from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useNavigate} from 'react-router-dom';
 import VolunteerForm from '../components/VolunteerForm';
 import {addVolunteer, getVolunteerByName} from '../services/api';
 import { Box, Typography, Alert } from '@mui/material';
+import HomePage from "./HomePage.jsx";
 
 const AddVolunteerPage = () => {
     const { isLoggedIn } = useOutletContext();
-
+    const navigate = useNavigate();
     const handleSubmit = async (volunteer) => {
         const existingVolunteer = await getVolunteerByName(volunteer.name);
         if(existingVolunteer) {
             alert('已存在志愿者!');
+
             return;
         }
         await addVolunteer(volunteer);
         alert('志愿者添加成功!');
+        navigate("/volunteers")
     };
 
     return (
