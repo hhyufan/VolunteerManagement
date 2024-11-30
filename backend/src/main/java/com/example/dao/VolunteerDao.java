@@ -13,4 +13,6 @@ public interface VolunteerDao {
     void deleteVolunteer(int id) throws SQLException;
 
     Volunteer getVolunteerById(int id);
+
+    Volunteer getVolunteerByName(String name);
 }

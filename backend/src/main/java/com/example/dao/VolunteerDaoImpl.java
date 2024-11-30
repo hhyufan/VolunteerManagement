@@ -87,13 +87,28 @@ public class VolunteerDaoImpl implements VolunteerDao {
 
     @Override
     public Volunteer getVolunteerById(int id) {
-        Volunteer volunteer = null;
         String selectByIdSql = "SELECT * FROM volunteer WHERE id = ?";
+        return getVolunteerByQuery(selectByIdSql, id);
+    }
+
+    @Override
+    public Volunteer getVolunteerByName(String name) {
+        String selectByNameSql = "SELECT * FROM volunteer WHERE name = ?";
+        return getVolunteerByQuery(selectByNameSql, name);
+    }
+
+    private Volunteer getVolunteerByQuery(String query, Object param) {
+        Volunteer volunteer = null;
 
         try (Connection connection = JDBCUtils.getConnection();
-             PreparedStatement statement = connection.prepareStatement(selectByIdSql)) {
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
-            statement.setInt(1, id);
+            if (param instanceof Integer) {
+                statement.setInt(1, (Integer) param);
+            } else if (param instanceof String) {
+                statement.setString(1, (String) param);
+            }
+
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
@@ -104,7 +119,7 @@ public class VolunteerDaoImpl implements VolunteerDao {
                 volunteer.setPhone(resultSet.getString("phone"));
             }
         } catch (SQLException e) {
-            logger.error("Error retrieving volunteer by id from the database", e);
+            logger.error("Error retrieving volunteer from the database", e);
         }
 
         return volunteer;

@@ -1,13 +1,18 @@
 import React from 'react';
 import { useOutletContext } from 'react-router-dom';
 import VolunteerForm from '../components/VolunteerForm';
-import { addVolunteer } from '../services/api';
+import {addVolunteer, getVolunteerByName} from '../services/api';
 import { Box, Typography, Alert } from '@mui/material';
 
 const AddVolunteerPage = () => {
     const { isLoggedIn } = useOutletContext();
 
     const handleSubmit = async (volunteer) => {
+        const existingVolunteer = await getVolunteerByName(volunteer.name);
+        if(existingVolunteer) {
+            alert('已存在志愿者!');
+            return;
+        }
         await addVolunteer(volunteer);
         alert('志愿者添加成功!');
     };

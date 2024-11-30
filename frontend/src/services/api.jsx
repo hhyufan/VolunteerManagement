@@ -11,6 +11,19 @@ export const fetchVolunteers = async () => {
     }
 };
 
+export const getVolunteerByName = async (name) => {
+    try {
+        const response = await axios.get(`${API_URL}/select`, {
+            params: { name }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching volunteer by name:', error);
+        throw error;
+    }
+};
+
+
 export const deleteVolunteer = async (id) => {
     try {
         await axios.get(`${API_URL}/delete`, {
