@@ -1,30 +1,29 @@
 import React from 'react';
-import { useOutletContext, useNavigate} from 'react-router-dom';
+import { useOutletContext, useNavigate } from 'react-router-dom';
 import VolunteerForm from '../components/VolunteerForm';
-import {addVolunteer, getVolunteerByName} from '../services/api';
+import { addVolunteer, getVolunteerByName } from '../services/api';
 import { Box, Typography, Alert } from '@mui/material';
-import HomePage from "./HomePage.jsx";
 
 const AddVolunteerPage = () => {
     const { isLoggedIn } = useOutletContext();
     const navigate = useNavigate();
+
     const handleSubmit = async (volunteer) => {
         const existingVolunteer = await getVolunteerByName(volunteer.name);
-        if(existingVolunteer) {
+        if (existingVolunteer) {
             alert('已存在志愿者!');
-
             return;
         }
         await addVolunteer(volunteer);
         alert('志愿者添加成功!');
-        navigate("/volunteers")
+        navigate("/volunteers");
     };
 
     return (
         <Box sx={{ p: 3 }}>
             <Typography variant="h4" gutterBottom>添加新志愿者</Typography>
             {isLoggedIn ? (
-                <VolunteerForm onSubmit={handleSubmit} />
+                <VolunteerForm initialData={{ name: '', email: '', phone: '' }} onSubmit={handleSubmit} />
             ) : (
                 <Alert severity="warning">请先登录以添加志愿者。</Alert>
             )}
