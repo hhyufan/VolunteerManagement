@@ -41,7 +41,7 @@ const VolunteerListPage = () => {
 
     return (
         <Box sx={{ p: 3 }}>
-            {editingVolunteer && volunteers > 0 && (
+            {editingVolunteer && volunteers.length > 0 && (
                 <VolunteerForm initialData={editingVolunteer} onSubmit={handleSubmit} />
             )}
             <Grid2 container spacing={2}>
