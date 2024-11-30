@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { Box, Button, TextField } from '@mui/material';
 
 const VolunteerForm = ({ initialData = {}, onSubmit }) => {
     const [volunteer, setVolunteer] = useState(initialData);
+
+    useEffect(() => {
+        // 当 initialData 变化时，更新 volunteer 状态
+        setVolunteer(initialData);
+    }, [initialData]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
