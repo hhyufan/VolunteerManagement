@@ -25,7 +25,6 @@ public class AdminDaoImpl implements AdminDao {
             return false;
         }
     }
-
     @Override
     public Admin login(String username, String password) {
         String sql = "SELECT * FROM Admin WHERE username = ? AND password = ?";
@@ -45,5 +44,23 @@ public class AdminDaoImpl implements AdminDao {
             logger.error("SQL Error during login for username: {}", username, e);
         }
         return null;
+    }
+    @Override
+    public boolean userExists(String username) {
+        String querySql = "SELECT COUNT(*) FROM admin WHERE username = ?";
+        try (Connection connection = JDBCUtils.getConnection();
+             PreparedStatement statement = connection.prepareStatement(querySql)) {
+
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            logger.error("Error checking if admin user exists in the database", e);
+        }
+        return false;
     }
 }

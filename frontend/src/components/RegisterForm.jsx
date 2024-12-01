@@ -14,7 +14,7 @@ const RegisterForm = ({ onClose, onSuccess }) => {
 
         // 检查密码和确认密码是否匹配
         if (password !== confirmPassword) {
-            setError('Passwords do not match');
+            setError('密码不一致！');
             return;
         }
 

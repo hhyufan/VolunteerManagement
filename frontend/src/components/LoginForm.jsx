@@ -5,6 +5,7 @@ import "../theme/style.scss"
 const LoginForm = ({ onClose, onSuccess }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -13,10 +14,10 @@ const LoginForm = ({ onClose, onSuccess }) => {
             if (response.success) {
                 onSuccess(username);
             } else {
-                alert(response.message);
+                setError(response.message || 'Login failed');
             }
         } catch (error) {
-            alert('Login failed');
+            setError('Login failed');
         }
     };
 
@@ -44,6 +45,7 @@ const LoginForm = ({ onClose, onSuccess }) => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
+                    {error && <Typography color="error" variant="body2" mt={1}>{error}</Typography>}
                     <Button type="submit" variant="contained" color="primary" fullWidth>Login</Button>
                 </form>
             </Box>

@@ -37,6 +37,12 @@ public class AdminServlet extends HttpServlet {
             return;
         }
 
+        // 检查用户是否已存在
+        if (adminDAO.userExists(username)) {
+            response.getWriter().write("{\"success\": false, \"message\": \"用户已存在！\"}");
+            return;
+        }
+
         Admin admin = new Admin();
         admin.setUsername(username);
         admin.setPassword(password);
@@ -57,8 +63,18 @@ public class AdminServlet extends HttpServlet {
         }
 
         Admin admin = adminDAO.login(username, password);
-        String jsonResponse = admin != null ? "{\"success\": true, \"message\": \"Login successful\"}" : "{\"success\": false, \"message\": \"Login failed\"}";
 
+        if (admin == null) {
+            // 检查用户名是否存在
+            if (!adminDAO.userExists(username)) {
+                response.getWriter().write("{\"success\": false, \"message\": \"用户不存在！\"}");
+            } else {
+                response.getWriter().write("{\"success\": false, \"message\": \"密码不正确！\"}");
+            }
+            return;
+        }
+
+        String jsonResponse = "{\"success\": true, \"message\": \"Login successful\"}";
         response.getWriter().write(jsonResponse);
     }
 
