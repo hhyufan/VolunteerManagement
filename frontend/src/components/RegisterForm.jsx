@@ -8,6 +8,11 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
+    // 密码强度验证
+    const validatePassword = (password) => {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@!%*#?&])[A-Za-z\d$@!%*#?&']{8,24}$/;
+        return passwordRegex.test(password);
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,7 +22,11 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
             setError('密码不一致！');
             return;
         }
-
+        // 检查密码强度
+        if (!validatePassword(password)) {
+            setError("密码强度不符合规范！");
+            return;
+        }
         try {
             const response = await registerAdmin(username, password);
             if (response.success) {
