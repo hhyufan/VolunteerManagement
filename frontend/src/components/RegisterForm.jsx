@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Button, TextField, Typography, Modal } from '@mui/material';
+import { Box, Button, TextField, Typography, Modal, Link } from '@mui/material';
 import { registerAdmin } from '../services/api'; // 假设你已经有一个 registerAdmin 的 API 方法
 import "../theme/style.scss"
 
-const RegisterForm = ({ onClose, onSuccess }) => {
+const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -30,10 +30,23 @@ const RegisterForm = ({ onClose, onSuccess }) => {
         }
     };
 
+    const handleSwitchToLogin = () => {
+        setShowLogin(true); // 切换到登录表单
+        onClose(); // 关闭注册表单
+    };
+
     return (
         <Modal open onClose={onClose}>
             <Box className="modal">
-                <Typography variant="h6" component="h2" mb={2}>Register</Typography>
+                <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+                    <Typography variant="h6" component="h2">Register</Typography>
+                    <Typography variant="body1">
+                        已有账户?{' '}
+                        <Link component="button" variant="body1" onClick={handleSwitchToLogin}>
+                            去登录
+                        </Link>
+                    </Typography>
+                </Box>
                 <form onSubmit={handleSubmit}>
                     <TextField
                         fullWidth

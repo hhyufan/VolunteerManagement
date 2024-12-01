@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Button, TextField, Typography, Modal } from '@mui/material';
+import { Box, Button, TextField, Typography, Modal, Link } from '@mui/material';
 import { loginAdmin } from '../services/api';
 import "../theme/style.scss"
-const LoginForm = ({ onClose, onSuccess }) => {
+
+const LoginForm = ({ onClose, onSuccess, setShowRegister }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -21,10 +22,23 @@ const LoginForm = ({ onClose, onSuccess }) => {
         }
     };
 
+    const handleSwitchToRegister = () => {
+        setShowRegister(true); // 切换到注册表单
+        onClose(); // 关闭登录表单
+    };
+
     return (
         <Modal open onClose={onClose}>
             <Box className="modal">
-                <Typography variant="h6" component="h2" mb={2}>Login</Typography>
+                <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+                    <Typography variant="h6" component="h2">Login</Typography>
+                    <Typography variant="body1">
+                        没有账户?{' '}
+                        <Link component="button" variant="body1" onClick={handleSwitchToRegister}>
+                            去注册
+                        </Link>
+                    </Typography>
+                </Box>
                 <form onSubmit={handleSubmit}>
                     <TextField
                         fullWidth

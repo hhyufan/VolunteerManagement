@@ -6,6 +6,8 @@ import AddVolunteerPage from './pages/AddVolunteerPage';
 import Layout from './layout/Layout.jsx';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import RegisterForm from "./components/RegisterForm.jsx";
+import LoginForm from "./components/LoginForm.jsx";
 // 将font矢量图标增加到库中.
 library.add(fas);
 const App = () => {

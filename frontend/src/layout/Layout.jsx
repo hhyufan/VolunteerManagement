@@ -55,8 +55,8 @@ const Layout = () => {
                 </Toolbar>
             </AppBar>
 
-            {showLogin && <LoginForm onClose={() => setShowLogin(false)} onSuccess={handleLoginSuccess} />}
-            {showRegister && <RegisterForm onClose={() => setShowRegister(false)} onSuccess={handleRegisterSuccess} />}
+            {showLogin && <LoginForm onClose={() => setShowLogin(false)} onSuccess={handleLoginSuccess}  setShowRegister={setShowRegister} />}
+            {showRegister && <RegisterForm onClose={() => setShowRegister(false)} onSuccess={handleRegisterSuccess}  setShowLogin={setShowLogin} />}
 
             <Box className="main-content">
                 {user && (
