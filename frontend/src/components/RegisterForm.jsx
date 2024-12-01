@@ -39,7 +39,7 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
         <Modal open onClose={onClose}>
             <Box className="modal">
                 <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-                    <Typography variant="h6" component="h2">Register</Typography>
+                    <Typography variant="h6" component="h2">注册</Typography>
                     <Typography variant="body1">
                         已有账户?{' '}
                         <Link component="button" variant="body1" onClick={handleSwitchToLogin}>
@@ -52,7 +52,7 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
                         fullWidth
                         variant="outlined"
                         margin="normal"
-                        label="Username"
+                        label="用户名"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
@@ -61,7 +61,7 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
                         fullWidth
                         variant="outlined"
                         margin="normal"
-                        label="Password"
+                        label="密码"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -71,7 +71,7 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
                         fullWidth
                         variant="outlined"
                         margin="normal"
-                        label="Confirm Password"
+                        label="确认密码"
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}

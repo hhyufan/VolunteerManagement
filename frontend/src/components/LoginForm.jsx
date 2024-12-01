@@ -31,7 +31,7 @@ const LoginForm = ({ onClose, onSuccess, setShowRegister }) => {
         <Modal open onClose={onClose}>
             <Box className="modal">
                 <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-                    <Typography variant="h6" component="h2">Login</Typography>
+                    <Typography variant="h6" component="h2">登录</Typography>
                     <Typography variant="body1">
                         没有账户?{' '}
                         <Link component="button" variant="body1" onClick={handleSwitchToRegister}>
@@ -44,7 +44,7 @@ const LoginForm = ({ onClose, onSuccess, setShowRegister }) => {
                         fullWidth
                         variant="outlined"
                         margin="normal"
-                        label="Username"
+                        label="用户名"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
@@ -53,7 +53,7 @@ const LoginForm = ({ onClose, onSuccess, setShowRegister }) => {
                         fullWidth
                         variant="outlined"
                         margin="normal"
-                        label="Password"
+                        label="密码"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
