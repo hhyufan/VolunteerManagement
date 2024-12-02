@@ -8,11 +8,25 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
-    // 密码强度验证
-    const validatePassword = (password) => {
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@!%*#?&])[A-Za-z\d$@!%*#?&']{8,24}$/;
-        return passwordRegex.test(password);
-    }
+
+    // 计算密码强度
+    const passwordStrength = ((password) => {
+        let strength = 0;
+        if (password.length >= 8) strength++;
+        if (/[A-Z]/.test(password)) strength++;
+        if (/[a-z]/.test(password)) strength++;
+        if (/\d/.test(password)) strength++;
+        if (/[!@#$%^&*]/.test(password)) strength++;
+        return strength; // 返回强度等级 0-5
+    })(password);
+
+    const getStrengthInfo = () => {
+        if (passwordStrength < 2) return { color: '#ff1111', text: '弱' , level: 1};
+        if (passwordStrength < 4) return { color: '#FFD700', text: '中', level: 2 };
+        return { color: '#00FF00', text: '强' , level: 3};
+    };
+
+    const { color, text, level } = getStrengthInfo();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,8 +37,8 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
             return;
         }
         // 检查密码强度
-        if (!validatePassword(password)) {
-            setError("密码强度不符合规范！");
+        if (level === 1) {
+            setError("密码强度太弱！");
             return;
         }
         try {
@@ -44,10 +58,12 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
         onClose(); // 关闭注册表单
     };
 
+
+
     return (
         <Modal open onClose={onClose}>
             <Box className="modal">
-                <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+                <Box className= "modal-header">
                     <Typography variant="h6" component="h2">注册</Typography>
                     <Typography variant="body1">
                         已有账户?{' '}
@@ -86,6 +102,36 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
                     />
+                    {/* 密码强度条 */}
+                    <Box display= {!password ? "none": "flex"} justifyContent="space-between" alignItems="center" mt={0.5} mb={1}>
+                        <Box
+                            sx={{
+                                flex: 1,
+                                height: '5px',
+                                backgroundColor: level >= 1 ? color : 'transparent'
+                            }}
+                        />
+                        <Box
+                            sx={{
+                                flex: 1,
+                                height: '5px',
+                                backgroundColor: level >= 2 ? color : 'transparent'
+                            }}
+                        />
+                        <Box
+                            sx={{
+                                flex: 1,
+                                height: '5px',
+                                backgroundColor: level >= 3 ? color : 'transparent'
+                            }}
+                        />
+                        <Typography
+                            color={color} textAlign= "center"
+                            ml = {1}
+                        >
+                            {text}
+                        </Typography>
+                    </Box>
                     {error && <Typography color="error" variant="body2" mt={1}>{error}</Typography>}
                     <Button type="submit" variant="contained" color="primary" fullWidth>Register</Button>
                 </form>

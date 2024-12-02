@@ -30,7 +30,7 @@ const LoginForm = ({ onClose, onSuccess, setShowRegister }) => {
     return (
         <Modal open onClose={onClose}>
             <Box className="modal">
-                <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+                <Box className= "modal-header">
                     <Typography variant="h6" component="h2">登录</Typography>
                     <Typography variant="body1">
                         没有账户?{' '}
