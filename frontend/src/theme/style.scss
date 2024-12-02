@@ -5,7 +5,10 @@ $link-color: #007bff;
 $link-hover-color: #2b8ad9;
 $background-color: #f4f4f9;
 $shadow-color: rgba(0, 0, 0, 0.1);
-
+:root {
+    --strength-line-color: transparent;
+    --strength-line-width: 0;
+}
 body, html {
   height: 100%;
   margin: 0;
@@ -106,4 +109,19 @@ body, html {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 8px;
+}
+.strength-line {
+
+    width: var(--strength-line-width);
+    height: 5px;
+    background-color: var(--strength-line-color);
+    transition: width 0.3s ease, background-color 0.3s ease;
+
+
+}
+.strength-text {
+    color: var(--strength-line-color);
+    margin-left: 10px;
+    text-align: right;
+    flex-grow: 1;
 }

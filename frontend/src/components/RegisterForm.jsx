@@ -21,12 +21,18 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
     })(password);
 
     const getStrengthInfo = () => {
-        if (passwordStrength < 2) return { color: '#ff1111', text: '弱', width: '33%' };
-        if (passwordStrength < 4) return { color: '#FFD700', text: '中', width: '66%' };
-        return { color: '#00FF00', text: '强', width: '100%' };
+        if (passwordStrength < 2) return { strengthColor: '#ff1111', strengthText: '弱', strengthWidth: '33%' };
+        if (passwordStrength < 4) return { strengthColor: '#FFD700', strengthText: '中', strengthWidth: '66%' };
+        return { strengthColor: '#00FF00', strengthText: '强', strengthWidth: '100%' };
     };
 
-    const { color, text, width } = getStrengthInfo();
+    const { strengthColor, strengthText, strengthWidth } = getStrengthInfo();
+
+    // 监听js变量的变化，更新CSS变量
+    React.useEffect(() => {
+        document.documentElement.style.setProperty('--strength-line-color', strengthColor);
+        document.documentElement.style.setProperty('--strength-line-width', strengthWidth);
+    }, [strengthColor, strengthWidth]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,11 +42,13 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
             setError('密码不一致！');
             return;
         }
+
         // 检查密码强度
         if (passwordStrength < 2) {
             setError("密码强度太弱！");
             return;
         }
+
         try {
             const response = await registerAdmin(username, password);
             if (response.success) {
@@ -102,17 +110,12 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
                     />
                     {/* 密码强度条 */}
                     <Box display={!password ? "none" : "flex"} alignItems="center" mt={0.5} mb={1}>
-                        <Box
-                            sx={{
-                                width: width,
-                                height: '5px',
-                                backgroundColor: color,
-                                transition: 'width 0.3s ease, background-color 0.3s ease',
-                            }}
-                        />
-                        <Typography color={color} ml={2} textAlign="right"  flexGrow={1}>
-                            {text}
+
+                        <Box className="strength-line"/>
+                        <Typography className="strength-text" ml={2}>
+                            {strengthText}
                         </Typography>
+
                     </Box>
                     {error && <Typography color="error" variant="body2" mt={1}>{error}</Typography>}
                     <Button type="submit" variant="contained" color="primary" fullWidth>Register</Button>
