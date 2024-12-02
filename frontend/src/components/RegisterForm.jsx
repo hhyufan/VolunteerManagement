@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField, Typography, Modal, Link } from '@mui/material';
 import { registerAdmin } from '../services/api'; // 假设你已经有一个 registerAdmin 的 API 方法
-import "../theme/style.scss"
+import "../theme/style.scss";
 
 const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
     const [username, setUsername] = useState('');
@@ -21,12 +21,12 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
     })(password);
 
     const getStrengthInfo = () => {
-        if (passwordStrength < 2) return { color: '#ff1111', text: '弱' , level: 1};
-        if (passwordStrength < 4) return { color: '#FFD700', text: '中', level: 2 };
-        return { color: '#00FF00', text: '强' , level: 3};
+        if (passwordStrength < 2) return { color: '#ff1111', text: '弱', width: '33%' };
+        if (passwordStrength < 4) return { color: '#FFD700', text: '中', width: '66%' };
+        return { color: '#00FF00', text: '强', width: '100%' };
     };
 
-    const { color, text, level } = getStrengthInfo();
+    const { color, text, width } = getStrengthInfo();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -37,7 +37,7 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
             return;
         }
         // 检查密码强度
-        if (level === 1) {
+        if (passwordStrength < 2) {
             setError("密码强度太弱！");
             return;
         }
@@ -58,12 +58,10 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
         onClose(); // 关闭注册表单
     };
 
-
-
     return (
         <Modal open onClose={onClose}>
             <Box className="modal">
-                <Box className= "modal-header">
+                <Box className="modal-header">
                     <Typography variant="h6" component="h2">注册</Typography>
                     <Typography variant="body1">
                         已有账户?{' '}
@@ -103,32 +101,16 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
                         required
                     />
                     {/* 密码强度条 */}
-                    <Box display= {!password ? "none": "flex"} justifyContent="space-between" alignItems="center" mt={0.5} mb={1}>
+                    <Box display={!password ? "none" : "flex"} alignItems="center" mt={0.5} mb={1}>
                         <Box
                             sx={{
-                                flex: 1,
+                                width: width,
                                 height: '5px',
-                                backgroundColor: level >= 1 ? color : 'transparent'
+                                backgroundColor: color,
+                                transition: 'width 0.3s ease, background-color 0.3s ease',
                             }}
                         />
-                        <Box
-                            sx={{
-                                flex: 1,
-                                height: '5px',
-                                backgroundColor: level >= 2 ? color : 'transparent'
-                            }}
-                        />
-                        <Box
-                            sx={{
-                                flex: 1,
-                                height: '5px',
-                                backgroundColor: level >= 3 ? color : 'transparent'
-                            }}
-                        />
-                        <Typography
-                            color={color} textAlign= "center"
-                            ml = {1}
-                        >
+                        <Typography color={color} ml={2} textAlign="right"  flexGrow={1}>
                             {text}
                         </Typography>
                     </Box>
