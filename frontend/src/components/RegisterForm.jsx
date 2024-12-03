@@ -6,6 +6,7 @@ import "../theme/style.scss";
 const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [invitationCode, setInvitationCode] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
 
@@ -25,6 +26,7 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
         if (passwordStrength < 4) return { strengthColor: '#FFD700', strengthText: '中', strengthWidth: '66%' };
         return { strengthColor: '#00FF00', strengthText: '强', strengthWidth: '100%' };
     };
+
 
     const { strengthColor, strengthText, strengthWidth } = getStrengthInfo();
 
@@ -50,7 +52,7 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
         }
 
         try {
-            const response = await registerAdmin(username, password);
+            const response = await registerAdmin(username, password, invitationCode);
             if (response.success) {
                 onSuccess(username); // 成功注册后，调用 onSuccess 回调
             } else {
@@ -106,6 +108,15 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                    />
+                    <TextField
+                        fullWidth
+                        variant="outlined"
+                        margin="normal"
+                        label="邀请码"
+                        value={invitationCode}
+                        onChange={(e) => setInvitationCode(e.target.value)}
                         required
                     />
                     {/* 密码强度条 */}

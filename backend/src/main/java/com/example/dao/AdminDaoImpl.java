@@ -63,4 +63,21 @@ public class AdminDaoImpl implements AdminDao {
         }
         return false;
     }
+    @Override
+    public Integer getAdminIdByName(String username) {
+        String querySql = "SELECT id FROM Admin WHERE username = ?";
+        try (Connection connection = JDBCUtils.getConnection();
+             PreparedStatement statement = connection.prepareStatement(querySql)) {
+
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt("id");
+            }
+        } catch (SQLException e) {
+            logger.error("Error retrieving admin ID for username: {}", username, e);
+        }
+        return null;
+    }
 }

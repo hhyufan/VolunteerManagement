@@ -75,13 +75,15 @@ export const loginAdmin = async (username, password) => {
 };
 
 // 注册
-export const registerAdmin = async (username, password) => {
+export const registerAdmin = async (username, password, invitationCode) => {
     try {
+        console.log(invitationCode)
         const response = await axios.get('/api/admin', {
             params: {
                 action: 'register',
                 username: encodeURIComponent(username),
-                password: encodeURIComponent(password)
+                password: encodeURIComponent(password),
+                invitationCode: encodeURIComponent(invitationCode)
             }
         });
         return response.data;
