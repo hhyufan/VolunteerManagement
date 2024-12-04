@@ -66,7 +66,7 @@ public class AdminServlet extends HttpServlet {
         }
 
         if (!invitationCodeDao.isInvitationCodeExists(invitationCode)) {
-            response.getWriter().write("{\"success\": false, \"message\": \"邀请码不正确！\"}");
+            response.getWriter().write("{\"success\": false, \"message\": \"邀请码不正确或已被使用！\"}");
             return;
         }
 
