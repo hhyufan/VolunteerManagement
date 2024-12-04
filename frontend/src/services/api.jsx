@@ -78,8 +78,8 @@ export const loginAdmin = async (username, password) => {
         const response = await axios.get('/api/admin', {
             params: {
                 action: 'login',
-                username: encodeURIComponent(username),
-                password: encodeURIComponent(password)
+                username,
+                password
             }
         });
         return response.data;
@@ -96,11 +96,11 @@ export const registerAdmin = async (username, password, invitationCode, phone, e
         const response = await axios.get('/api/admin', {
             params: {
                 action: 'register',
-                username: encodeURIComponent(username),
-                password: encodeURIComponent(password),
-                invitationCode: encodeURIComponent(invitationCode),
-                phone: encodeURIComponent(phone),
-                email: encodeURIComponent(email)
+                username,
+                password,
+                invitationCode,
+                phone,
+                email
             }
         });
         return response.data;
