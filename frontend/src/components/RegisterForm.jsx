@@ -8,6 +8,8 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
     const [password, setPassword] = useState('');
     const [invitationCode, setInvitationCode] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
     const [error, setError] = useState('');
 
     // 计算密码强度
@@ -52,7 +54,7 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
         }
 
         try {
-            const response = await registerAdmin(username, password, invitationCode);
+            const response = await registerAdmin(username, password, invitationCode, phone, email);
             if (response.success) {
                 onSuccess(username); // 成功注册后，调用 onSuccess 回调
             } else {
@@ -108,6 +110,24 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                    />
+                    <TextField
+                        fullWidth
+                        variant="outlined"
+                        margin="normal"
+                        label="电话"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        required
+                    />
+                    <TextField
+                        fullWidth
+                        variant="outlined"
+                        margin="normal"
+                        label="邮箱"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                     <TextField

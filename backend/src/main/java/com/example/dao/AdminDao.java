@@ -9,7 +9,7 @@ public interface AdminDao {
     Admin login(String username, String password);
 
     boolean userExists(String username);
-
+    String getAdminInfoByName(String username);
 
     Integer getAdminIdByName(String username);
 }

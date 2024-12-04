@@ -5,8 +5,7 @@ import { faHome, faUsers, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AppBar, Toolbar, Typography, Button, Drawer, List, ListItem, ListItemIcon, ListItemText, Box } from '@mui/material';
 import LoginForm from '../components/LoginForm.jsx';
 import RegisterForm from '../components/RegisterForm.jsx';
-import '../theme/style.scss';
-
+import '../theme/style.scss'
 const drawerWidth = 240;
 
 const Layout = () => {
@@ -41,9 +40,9 @@ const Layout = () => {
                     </Typography>
                     {user ? (
                         <Box>
-                            <Typography variant="body1" sx={{ display: 'inline', marginRight: 2 }}>
+                            <Link to="/admin-home" style={{ textDecoration: 'none', color: 'inherit', marginRight: '8px' }}>
                                 欢迎您, {user}
-                            </Typography>
+                            </Link>
                             <Button color="inherit" onClick={handleLogout}>退出</Button>
                         </Box>
                     ) : (
@@ -90,7 +89,7 @@ const Layout = () => {
                     </Drawer>
                 )}
                 <Box component="main" className="content" sx={{ flexGrow: 1, p: 3 }}>
-                    <Outlet context={{ isLoggedIn }} />
+                    <Outlet context={{ isLoggedIn, user}} />
                 </Box>
             </Box>
 

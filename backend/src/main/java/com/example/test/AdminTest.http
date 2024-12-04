@@ -11,3 +11,9 @@ GET http://localhost:8080/VolunteerManagement_war/api/admin?action=login&usernam
 Content-Type: application/json
 
 ###
+
+### 测试fetch
+
+GET http://localhost:8080/VolunteerManagement_war/api/admin?action=fetch&username=testuser&password=testpass
+Content-Type: application/json
+###

@@ -11,6 +11,21 @@ export const fetchVolunteers = async () => {
     }
 };
 
+export const fetchAdmins = async (username) => {
+    try {
+        const response = await axios.get("/api/admin", {
+            params: {
+                action: 'fetch' ,
+                username
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching volunteers:', error);
+        throw error;
+    }
+};
+
 export const getVolunteerByName = async (name) => {
     try {
         const response = await axios.get(`${API_URL}/select`, {
@@ -75,7 +90,7 @@ export const loginAdmin = async (username, password) => {
 };
 
 // 注册
-export const registerAdmin = async (username, password, invitationCode) => {
+export const registerAdmin = async (username, password, invitationCode, phone, email) => {
     try {
         console.log(invitationCode)
         const response = await axios.get('/api/admin', {
@@ -83,7 +98,9 @@ export const registerAdmin = async (username, password, invitationCode) => {
                 action: 'register',
                 username: encodeURIComponent(username),
                 password: encodeURIComponent(password),
-                invitationCode: encodeURIComponent(invitationCode)
+                invitationCode: encodeURIComponent(invitationCode),
+                phone: encodeURIComponent(phone),
+                email: encodeURIComponent(email)
             }
         });
         return response.data;
