@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class InvitationCodeDaoImpl implements InvitationCodeDao {
@@ -79,5 +81,22 @@ public class InvitationCodeDaoImpl implements InvitationCodeDao {
         } while (isInvitationCodeExists(code.toString()));
         logger.info("Generated new invitation code: {}", code.toString());
         return code.toString();
+    }
+
+    @Override
+    public List<String> getInvitationCodesByAdmin(int id) {
+        List<String> invitationCodes = new ArrayList<>();
+        String query = "SELECT code FROM invitation_codes WHERE user_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                invitationCodes.add(resultSet.getString("code"));
+            }
+            logger.info("Retrieved invitation codes for user ID: {}", id);
+        } catch (SQLException e) {
+            logger.error("Error retrieving invitation codes for user ID: {}", id, e);
+        }
+        return invitationCodes;
     }
 }

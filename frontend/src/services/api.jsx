@@ -26,6 +26,21 @@ export const fetchAdmins = async (username) => {
     }
 };
 
+export const fetchInvitationCodes = async (username) => {
+    try {
+        const response = await axios.get("/api/invitationCodes", {
+            params: {
+                username
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(`Error fetching invitation codes:`, error);
+        throw error;
+    }
+}
+
+
 export const getVolunteerByName = async (name) => {
     try {
         const response = await axios.get(`${API_URL}/select`, {
