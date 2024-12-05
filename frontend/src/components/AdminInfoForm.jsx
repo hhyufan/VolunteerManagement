@@ -8,7 +8,7 @@ import {
     Paper,
     Divider
 } from '@mui/material';
-import {fetchAdmins, fetchInvitationCodes, fetchVolunteers} from "../services/api.jsx";
+import {fetchAdmins, fetchInvitationCode,  fetchVolunteers} from "../services/api.jsx";
 import {useOutletContext} from "react-router-dom";
 
 const AdminInfoForm = () => {
@@ -21,7 +21,7 @@ const AdminInfoForm = () => {
         setAdmin(data);
     };
     const loadInvitationCodes = async () => {
-        const data = await fetchInvitationCodes(user);
+        const data = await fetchInvitationCode(user);
         console.log(data)
         setInvitationCodes(data);
     }

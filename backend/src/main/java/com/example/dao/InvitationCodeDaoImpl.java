@@ -99,4 +99,19 @@ public class InvitationCodeDaoImpl implements InvitationCodeDao {
         }
         return invitationCodes;
     }
+    @Override
+    public List<String> getAllInvitationCodes() {
+        List<String> invitationCodes = new ArrayList<>();
+        String query = "SELECT code FROM invitation_codes";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                invitationCodes.add(resultSet.getString("code"));
+            }
+            logger.info("Retrieved invitation codes");
+        } catch (SQLException e) {
+            logger.error("Error retrieving invitation codes", e);
+        }
+        return invitationCodes;
+    }
 }

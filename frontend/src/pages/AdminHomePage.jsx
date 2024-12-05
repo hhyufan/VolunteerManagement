@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import {Link, Outlet, useOutletContext} from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faUser} from "@fortawesome/free-solid-svg-icons";
+import {faPlus, faUser} from "@fortawesome/free-solid-svg-icons";
 
 const AdminHomePage = () => {
     const { user } = useOutletContext();
@@ -29,6 +29,10 @@ const AdminHomePage = () => {
                                 <ListItem button component={Link} to="admin-info" className="nav-link">
                                     <ListItemIcon><FontAwesomeIcon icon={faUser} /></ListItemIcon>
                                     <ListItemText primary="个人信息" />
+                                </ListItem>
+                                <ListItem button component={Link} to="code-add" className="nav-link">
+                                    <ListItemIcon><FontAwesomeIcon icon={faPlus} /></ListItemIcon>
+                                    <ListItemText primary="创建邀请码" />
                                 </ListItem>
                             </List>
                         </Box>

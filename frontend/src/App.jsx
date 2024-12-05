@@ -6,10 +6,9 @@ import AddVolunteerPage from './pages/AddVolunteerPage';
 import Layout from './layout/Layout.jsx';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import RegisterForm from "./components/RegisterForm.jsx";
-import LoginForm from "./components/LoginForm.jsx";
 import AdminHomePage from "./pages/AdminHomePage.jsx";
 import AdminInfoForm from "./components/AdminInfoForm.jsx";
+import AddInvitationCodeForm from "./components/AddInvitationCodeForm.jsx";
 // 将font矢量图标增加到库中.
 library.add(fas);
 const App = () => {
@@ -22,6 +21,7 @@ const App = () => {
                     <Route path="add-volunteer" element={<AddVolunteerPage />} />
                     <Route path="admin-home" element={<AdminHomePage />} >
                         <Route path="admin-info" element={<AdminInfoForm />} />
+                        <Route path="code-add" element={<AddInvitationCodeForm />} />
                     </Route>
                 </Route>
             </Routes>

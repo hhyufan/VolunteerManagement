@@ -26,13 +26,23 @@ export const fetchAdmins = async (username) => {
     }
 };
 
-export const fetchInvitationCodes = async (username) => {
+export const fetchInvitationCode = async (username) => {
     try {
-        const response = await axios.get("/api/invitationCodes", {
+        const response = await axios.get("/api/invitationCode", {
             params: {
                 username
             }
         });
+        return response.data;
+    } catch (error) {
+        console.error(`Error fetching invitation codes:`, error);
+        throw error;
+    }
+}
+
+export const fetchInvitationCodes = async (username) => {
+    try {
+        const response = await axios.get("/api/invitationCodes");
         return response.data;
     } catch (error) {
         console.error(`Error fetching invitation codes:`, error);
@@ -86,6 +96,16 @@ export const addVolunteer = async (volunteer) => {
         throw error;
     }
 };
+
+export const addInvitationCode = async (invitationCode, username) => {
+    await axios.get(`/api/invitationCode/add`, {
+        params: {
+            invitationCode,
+            username
+        }
+    });
+};
+
 
 // 登录
 export const loginAdmin = async (username, password) => {

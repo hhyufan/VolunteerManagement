@@ -1,4 +1,4 @@
 ### GET request to example server
-GET http://localhost:5173/api/invitationCodes?username=YuFan
+GET http://localhost:5173/api/invitationCodes?username=12312121212
 
 ###
