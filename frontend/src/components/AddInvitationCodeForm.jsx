@@ -22,10 +22,23 @@ const AddInvitationCodeForm = () => {
         setInvitationCode(value);
     };
 
+    const isInvitationCodeLegal = (invitationCode) => {
+        let result = true;
+        const legalWords = [..."QWERTYUIOPASDFGHJKLZXCVBNM0123456789"];
+        [...invitationCode].forEach((invitationWord, i, code) => {
+             (!legalWords.includes(invitationWord) || code.length !== 6) && (result = false)
+        })
+        return result;
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (invitationCodes.includes(invitationCode)) {
             alert("邀请码已存在!");
+            return;
+        }
+        if (!isInvitationCodeLegal(invitationCode)) {
+            alert("邀请码不符合要求!");
             return;
         }
         await addInvitationCode(invitationCode, user)

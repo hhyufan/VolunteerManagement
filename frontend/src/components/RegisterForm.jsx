@@ -102,6 +102,15 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
+                    {/* 密码强度条 */}
+                    <Box display={!password ? "none" : "flex"} alignItems="center" mt={0.5} mb={1}>
+
+                        <Box className="strength-line"/>
+                        <Typography className="strength-text" ml={2}>
+                            {strengthText}
+                        </Typography>
+
+                    </Box>
                     <TextField
                         fullWidth
                         variant="outlined"
@@ -139,15 +148,7 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
                         onChange={(e) => setInvitationCode(e.target.value)}
                         required
                     />
-                    {/* 密码强度条 */}
-                    <Box display={!password ? "none" : "flex"} alignItems="center" mt={0.5} mb={1}>
 
-                        <Box className="strength-line"/>
-                        <Typography className="strength-text" ml={2}>
-                            {strengthText}
-                        </Typography>
-
-                    </Box>
                     {error && <Typography color="error" variant="body2" mt={1}>{error}</Typography>}
                     <Button type="submit" variant="contained" color="primary" fullWidth>Register</Button>
                 </form>
