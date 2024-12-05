@@ -40,7 +40,7 @@ export const fetchInvitationCode = async (username) => {
     }
 }
 
-export const fetchInvitationCodes = async (username) => {
+export const fetchInvitationCodes = async () => {
     try {
         const response = await axios.get("/api/invitationCodes");
         return response.data;

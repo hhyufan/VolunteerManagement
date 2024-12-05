@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
 import { Box, Button, TextField } from '@mui/material';
 
 const VolunteerForm = ({ initialData = {}, onSubmit }) => {
@@ -53,15 +52,6 @@ const VolunteerForm = ({ initialData = {}, onSubmit }) => {
             <Button type="submit" variant="contained" color="primary" fullWidth>Submit</Button>
         </Box>
     );
-};
-
-VolunteerForm.propTypes = {
-    initialData: PropTypes.shape({
-        name: PropTypes.string,
-        email: PropTypes.string,
-        phone: PropTypes.string,
-    }),
-    onSubmit: PropTypes.func.isRequired,
 };
 
 export default VolunteerForm;

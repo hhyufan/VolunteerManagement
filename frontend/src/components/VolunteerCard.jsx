@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Card, CardContent, Typography, CardActions, Button } from '@mui/material';
 
 const VolunteerCard = ({ volunteer, onDelete, onEdit, isLoggedIn }) => {
@@ -20,16 +19,5 @@ const VolunteerCard = ({ volunteer, onDelete, onEdit, isLoggedIn }) => {
     );
 };
 
-VolunteerCard.propTypes = {
-    volunteer: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        email: PropTypes.string.isRequired,
-        phone: PropTypes.string.isRequired,
-    }).isRequired,
-    onDelete: PropTypes.func.isRequired,
-    onEdit: PropTypes.func.isRequired,
-    isLoggedIn: PropTypes.bool.isRequired,
-};
 
 export default VolunteerCard;

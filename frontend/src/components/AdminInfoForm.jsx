@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {
-    Box,
-    Typography,
     List,
     ListItem,
     ListItemText,
     Paper,
     Divider
 } from '@mui/material';
-import {fetchAdmins, fetchInvitationCode,  fetchVolunteers} from "../services/api.jsx";
+import {fetchAdmins, fetchInvitationCode} from "../services/api.jsx";
 import {useOutletContext} from "react-router-dom";
 
 const AdminInfoForm = () => {

@@ -3,7 +3,6 @@ package com.example.servlet;
 import com.example.dao.VolunteerDao;
 import com.example.dao.VolunteerDaoImpl;
 import com.example.entity.Volunteer;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.ServletException;

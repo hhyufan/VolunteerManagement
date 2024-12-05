@@ -22,14 +22,8 @@ const AddInvitationCodeForm = () => {
         setInvitationCode(value);
     };
 
-    const isInvitationCodeLegal = (invitationCode) => {
-        let result = true;
-        const legalWords = [..."QWERTYUIOPASDFGHJKLZXCVBNM0123456789"];
-        [...invitationCode].forEach((invitationWord, i, code) => {
-             (!legalWords.includes(invitationWord) || code.length !== 6) && (result = false)
-        })
-        return result;
-    }
+    const isLegalInvitationCode = code => /^[A-Z0-9]{6}$/.test(code);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -37,7 +31,7 @@ const AddInvitationCodeForm = () => {
             alert("邀请码已存在!");
             return;
         }
-        if (!isInvitationCodeLegal(invitationCode)) {
+        if (!isLegalInvitationCode(invitationCode)) {
             alert("邀请码不符合要求!");
             return;
         }
