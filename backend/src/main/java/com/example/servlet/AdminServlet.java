@@ -78,9 +78,8 @@ public class AdminServlet extends HttpServlet {
         Admin admin = new Admin();
         admin.setUsername(username);
         admin.setPassword(password);
-        admin.setPhone(password);
+        admin.setPhone(phone);
         admin.setEmail(email);
-        admin.setPassword(password);
         boolean success = adminDAO.register(admin);
         String jsonResponse = success ? "{\"success\": true, \"message\": \"Registration successful\"}" : "{\"success\": false, \"message\": \"Registration failed\"}";
 
