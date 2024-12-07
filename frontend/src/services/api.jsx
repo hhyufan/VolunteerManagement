@@ -19,7 +19,7 @@ export const fetchAdmins = async (username) => {
                 username
             }
         });
-        alert(JSON.stringify(response.data));
+        // alert(JSON.stringify(response.data));
         return response.data;
     } catch (error) {
         console.error('Error fetching volunteers:', error);

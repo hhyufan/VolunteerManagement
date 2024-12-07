@@ -8,18 +8,19 @@ import {
     List,
     ListItem,
     ListItemIcon,
-    ListItemText, Grid2
+    ListItemText, Grid2, Alert
 } from '@mui/material';
+
 import {Link, Outlet, useOutletContext} from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus, faUser} from "@fortawesome/free-solid-svg-icons";
 
 const AdminHomePage = () => {
-    const { user } = useOutletContext();
+    const { isLoggedIn , user } = useOutletContext();
     return (
         <Box sx={{ flexDirection: 'column', minHeight: '100vh', backgroundColor: '#f4f4f9' }}>
             {/* Main Content */}
-            <Container sx={{  padding: '20px' }}>
+            {isLoggedIn ? (<Container sx={{  padding: '20px' }}>
                 <Grid2 container spacing={2}>
                     <Grid2 item xs={3}>
                         {/* Sidebar */}
@@ -44,7 +45,10 @@ const AdminHomePage = () => {
                         </Box>
                     </Grid2>
                 </Grid2>
-            </Container>
+            </Container>)
+            : (
+            <Alert severity="warning">请先登录以查看个人信息。</Alert>
+            )}
         </Box>
     );
 };
