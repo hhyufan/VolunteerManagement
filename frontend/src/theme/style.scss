@@ -10,11 +10,11 @@ $shadow-color: rgba(0, 0, 0, 0.1);
     --strength-line-width: 0;
 }
 body, html {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: $background-color;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: $background-color;
 }
 
 .layout {
@@ -22,7 +22,7 @@ body, html {
     flex-direction: column;
     min-height: 100vh;
 
-    .header, .footer {
+    .header {
         background-color: $primary-color;
         color: $text-color;
         text-align: center;
@@ -67,6 +67,9 @@ body, html {
     }
 
     .footer {
+        background-color: $primary-color;
+        color: $text-color;
+        text-align: center;
         padding: 10px 0;
     }
 }
@@ -111,7 +114,6 @@ body, html {
     margin-bottom: 8px;
 }
 .strength-line {
-
     width: var(--strength-line-width);
     height: 5px;
     background-color: var(--strength-line-color);

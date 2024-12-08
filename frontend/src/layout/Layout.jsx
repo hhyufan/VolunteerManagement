@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { Link, Outlet,  useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faUsers, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AppBar, Toolbar, Typography, Button, Drawer, List, ListItem, ListItemIcon, ListItemText, Box } from '@mui/material';
 import LoginForm from '../components/LoginForm.jsx';
 import RegisterForm from '../components/RegisterForm.jsx';
-import '../theme/style.scss'
+import '../theme/style.scss';
+
 const drawerWidth = 240;
 
 const Layout = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [showLogin, setShowLogin] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
     const [user, setUser] = useState(null);
@@ -33,6 +34,7 @@ const Layout = () => {
 
     return (
         <Box className="layout">
+            {/* Header 放在顶部 */}
             <AppBar position="static" className="header">
                 <Toolbar>
                     <Typography variant="h6" sx={{ flexGrow: 1 }}>
@@ -54,9 +56,11 @@ const Layout = () => {
                 </Toolbar>
             </AppBar>
 
-            {showLogin && <LoginForm onClose={() => setShowLogin(false)} onSuccess={handleLoginSuccess}  setShowRegister={setShowRegister} />}
-            {showRegister && <RegisterForm onClose={() => setShowRegister(false)} onSuccess={handleRegisterSuccess}  setShowLogin={setShowLogin} />}
+            {/* 登录和注册表单 */}
+            {showLogin && <LoginForm onClose={() => setShowLogin(false)} onSuccess={handleLoginSuccess} setShowRegister={setShowRegister} />}
+            {showRegister && <RegisterForm onClose={() => setShowRegister(false)} onSuccess={handleRegisterSuccess} setShowLogin={setShowLogin} />}
 
+            {/* 主内容区域，包括 Sidebar 和 Content */}
             <Box className="main-content">
                 {user && (
                     <Drawer
@@ -89,10 +93,11 @@ const Layout = () => {
                     </Drawer>
                 )}
                 <Box component="main" className="content" sx={{ flexGrow: 1, p: 3 }}>
-                    <Outlet context={{ isLoggedIn, user}} />
+                    <Outlet context={{ isLoggedIn, user }} />
                 </Box>
             </Box>
 
+            {/* Footer */}
             <Box component="footer" className="footer">
                 <Typography variant="body2">© 2024 志愿者管理系统</Typography>
             </Box>

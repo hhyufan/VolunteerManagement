@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import {Link, useOutletContext} from 'react-router-dom';
 import VolunteerCard from '../components/VolunteerCard';
 import VolunteerForm from '../components/VolunteerForm';
 import { fetchVolunteers, deleteVolunteer, updateVolunteer, addVolunteer } from '../services/api';
-import {Box, Grid2} from '@mui/material';
+import {Alert, Box, Grid2, Typography} from '@mui/material';
 
 const VolunteerListPage = () => {
     const { isLoggedIn } = useOutletContext(); // 从上下文中获取 isLoggedIn
@@ -44,7 +44,7 @@ const VolunteerListPage = () => {
             {editingVolunteer && volunteers.length > 0 && (
                 <VolunteerForm initialData={editingVolunteer} onSubmit={handleSubmit} />
             )}
-            <Grid2 container spacing={2}>
+            {volunteers.length > 0 ? (<Grid2 container spacing={2}>
                 {volunteers.map(volunteer => (
                     <Grid2 item xs={12} sm={6} md={4} key={volunteer.id}>
                         <VolunteerCard
@@ -55,7 +55,8 @@ const VolunteerListPage = () => {
                         />
                     </Grid2>
                 ))}
-            </Grid2>
+            </Grid2>): (<Alert severity="warning" >请先<Typography component={Link} to="../add-volunteer">添加</Typography>一个志愿者。</Alert>)
+            }
         </Box>
     );
 };
