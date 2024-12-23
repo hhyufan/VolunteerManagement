@@ -57,7 +57,7 @@ const EventForm = ({ initialData = {}, onSubmit }) => {
             />
             <TextField
                 fullWidth
-                label="Duration [reg:(\d+时)?(\d+分)?(\d+秒)?]"
+                label="Duration [reg:(\d+小时)?(\d+分)?(\d+秒)?]"
                 name="duration"
                 value={event.duration || ''}
                 onChange={handleChange}

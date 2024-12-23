@@ -11,7 +11,7 @@ import java.util.List;
 
 public class VolunteerDaoImpl implements VolunteerDao {
     private static final Logger logger = LogManager.getLogger(VolunteerDaoImpl.class);
-
+    private final EventRecordDao eventRecordDao = new EventRecordDaoImpl();
     @Override
     public void addVolunteer(Volunteer volunteer) {
         String insertSql = "INSERT INTO volunteer (name, email, phone) VALUES (?, ?, ?)";
@@ -53,9 +53,9 @@ public class VolunteerDaoImpl implements VolunteerDao {
 
         try (Connection connection = JDBCUtils.getConnection();
              PreparedStatement statement = connection.prepareStatement(deleteSql)) {
-
             statement.setInt(1, id);
             statement.executeUpdate();
+            eventRecordDao.deleteEventRecordByVolunteerId((long) id);
         } catch (SQLException e) {
             logger.error("Error deleting volunteer from the database", e);
         }

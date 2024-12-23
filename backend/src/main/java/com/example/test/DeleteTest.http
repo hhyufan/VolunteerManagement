@@ -1,4 +1,10 @@
-### GET request to example server
-DELETE http://localhost:5173/api/volunteers/4
-
+### 测试删除志愿者
+GET http://localhost:8080/VolunteerManagement_war/api/volunteers/delete?id=1
+Content-Type: application/json
 ###
+
+### 测试删除活动
+GET http://localhost:8080/VolunteerManagement_war/api/events/delete?title=社区清扫
+Content-Type: application/json
+###
+events
