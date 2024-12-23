@@ -1,0 +1,25 @@
+### 添加事件的 GET 请求
+GET http://localhost:8080/VolunteerManagement_war/api/events/add?
+    title=新年爆竹安全活动
+    &date=2024-01-01
+    &location=公园
+    &duration=666
+    &content=新年志愿者活动，欢迎大家参与！
+    &attachmentLink=http://example.com/attachment1
+    &imageUrl=http://example.com/image1.jpg
+### 获取所有事件
+GET http://localhost:8080/VolunteerManagement_war/api/events
+Accept: application/json
+
+### 获取所有事件
+GET http://localhost:8080/VolunteerManagement_war/api/events/select?title=社区清扫
+
+### Update an event
+http://localhost:8080/VolunteerManagement_war/api/events/update?id=142&title=Updated%20Event&date=2024-12-21T22:27:00&location=New%20York&duration=3600&content=Updated%20event%20content.&attachmentLink=http://example.com/attachment&imageUrl=http://example.com/image.jpg
+Accept: application/json
+### Delete an event
+GET http://localhost:8080/VolunteerManagement_war/api/events/delete?id=1
+Accept: application/json
+
+### Add Event Test
+GET http://localhost:8080/VolunteerManagement_war/api/events/add?title=Sample%20Event&date=2024-12-21T22:27:00&location=New%20York&duration=3600&content=This%20is%20a%20sample%20event%20content.&attachmentLink=http://example.com/attachment&imageUrl=http://example.com/image.jpg

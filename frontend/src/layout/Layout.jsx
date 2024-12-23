@@ -89,6 +89,14 @@ const Layout = () => {
                                 <ListItemIcon><FontAwesomeIcon icon={faPlus} /></ListItemIcon>
                                 <ListItemText primary="添加志愿者" />
                             </ListItem>
+                            <ListItem button component={Link} to="/events" className="nav-link">
+                                <ListItemIcon><FontAwesomeIcon icon={faUsers} /></ListItemIcon>
+                                <ListItemText primary="管理活动" />
+                            </ListItem>
+                            <ListItem button component={Link} to="/add-event" className="nav-link">
+                                <ListItemIcon><FontAwesomeIcon icon={faPlus} /></ListItemIcon>
+                                <ListItemText primary="添加活动" />
+                            </ListItem>
                         </List>
                     </Drawer>
                 )}

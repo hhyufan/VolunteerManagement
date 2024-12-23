@@ -1,7 +1,7 @@
-import {Box, Button, TextField} from "@mui/material";
-import React, {useEffect, useState} from "react";
-import {useOutletContext} from "react-router-dom";
-import {addInvitationCode, fetchInvitationCodes} from "../services/api.jsx";
+import { Box, Button, TextField } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { useOutletContext } from "react-router-dom";
+import { addInvitationCode, fetchInvitationCodes } from "../services/api.jsx";
 
 const AddInvitationCodeForm = () => {
     const initialData = "";
@@ -18,7 +18,7 @@ const AddInvitationCodeForm = () => {
         loadInvitationCodes();
     }, []);
     const handleChange = (e) => {
-        const {value } = e.target;
+        const { value } = e.target;
         setInvitationCode(value);
     };
 

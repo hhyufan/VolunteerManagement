@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS Volunteer;
 CREATE TABLE Volunteer (
                            id INT PRIMARY KEY AUTO_INCREMENT,  -- id 自增
                            name VARCHAR(255) NOT NULL,          -- 姓名，非空
+                           password VARCHAR(255) ,              -- 密码，管理员不可见
                            email VARCHAR(255) NOT NULL,         -- 邮箱，非空
                            phone VARCHAR(20) NOT NULL           -- 电话，非空
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

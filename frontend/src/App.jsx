@@ -8,6 +8,8 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import AdminHomePage from "./pages/AdminHomePage.jsx";
 import AdminInfoForm from "./components/AdminInfoForm.jsx";
 import AddInvitationCodeForm from "./components/AddInvitationCodeForm.jsx";
+import AddEventPage from "./pages/AddEventPage.jsx";
+import EventListPage from "./pages/EventListPage.jsx";
 // 将font矢量图标增加到库中.
 library.add(fas);
 const App = () => {
@@ -22,6 +24,8 @@ const App = () => {
                         <Route path="admin-info" element={<AdminInfoForm />} />
                         <Route path="code-add" element={<AddInvitationCodeForm />} />
                     </Route>
+                    <Route path="events" element={<EventListPage/>} />
+                    <Route path="add-event" element={<AddEventPage/>} />
                 </Route>
             </Routes>
         </BrowserRouter>
