@@ -1,6 +1,6 @@
 ### 测试管理员注册
 
-GET http://localhost:5173/api/admin?action=register&username=testuser&password=testpass
+GET http://localhost:5173/api/admin?action=register&username=testuser&password=testpass&phone=123&email=345@222&invitationCode=421344
 Content-Type: application/json
 
 ###

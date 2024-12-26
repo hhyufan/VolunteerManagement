@@ -11,7 +11,7 @@ const LoginForm = ({ onClose, onSuccess, setShowRegister }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await loginAdmin(username, password);
+            const response =  await loginAdmin(username, password);
             if (response.success) {
                 onSuccess(username);
             } else {

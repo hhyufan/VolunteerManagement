@@ -171,21 +171,27 @@ export const loginAdmin = async (username, password) => {
 };
 
 // 注册
-export const registerAdmin = async (username, password, phone, email) => {
+export const registerAdmin = async (username, password, phone, email, invitationCode) => {
     try {
-        const response = await axios.post(`${API_URL}/register`, {
-            name: username,  // 假设后端的 Volunteer 对象中使用 name 字段
-            password,
-            phone,
-            email
+        const response = await axios.get('/api/admin', {
+            params: {
+                action: 'register',
+                username,
+                password,
+                phone,
+                email,
+                invitationCode
+            },
+            headers: {
+                'Content-Type': 'application/json',
+            }
         });
-        return response.data; // 返回包含 message 的 JSON 对象
+        return response.data;
     } catch (error) {
         console.error('Error registering:', error);
         throw error;
     }
 };
-
 // deleteEvent
 export const deleteEvent = async (title) => {
     try {

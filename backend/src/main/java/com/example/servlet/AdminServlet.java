@@ -26,7 +26,7 @@ public class AdminServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
-
+        System.out.println(action);
         if ("register".equals(action)) {
             register(request, response);
         } else if ("login".equals(action)) {
@@ -66,10 +66,11 @@ public class AdminServlet extends HttpServlet {
         }
 
         if (!invitationCodeDao.isInvitationCodeExists(invitationCode)) {
+            System.out.println("Invitation code not exists");
             response.getWriter().write("{\"success\": false, \"message\": \"邀请码不正确或已被使用！\"}");
             return;
         }
-
+        System.out.println("Invitation code: " + invitationCode);
         if (adminDAO.userExists(username)) {
             response.getWriter().write("{\"success\": false, \"message\": \"用户已存在！\"}");
             return;

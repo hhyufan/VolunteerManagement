@@ -54,7 +54,7 @@ const RegisterForm = ({ onClose, onSuccess, setShowLogin }) => {
         }
 
         try {
-            const response = await registerAdmin(username, password, invitationCode, phone, email);
+            const response = await registerAdmin(username, password, phone, email, invitationCode);
             if (response.success) {
                 onSuccess(username); // 成功注册后，调用 onSuccess 回调
             } else {
